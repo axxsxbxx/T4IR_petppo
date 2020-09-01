@@ -8,6 +8,8 @@ from .models import Members
 from django.shortcuts import render
 from django.contrib.auth.hashers import make_password, check_password  #비밀번호 암호화
 from django.core.exceptions import ObjectDoesNotExist   #이메일 중복 체크
+from django.contrib.auth.models import User
+from django.contrib import auth
 
 
 def petppologin(request):
@@ -71,6 +73,8 @@ def register(request):
                                    nickname=nickname, addr_id=addr_id, kind=kind, petage=petage, petgender=petgender,
                                     )
                 new_user.save()
+                user = User.objects.create_user(username=request.POST['email'], password=request.POST['password'])
+                auth.login(request, user)
                 results['error'] = '정상적으로 가입되었습니다.'
 
         return render(request, 'signup.html', results)

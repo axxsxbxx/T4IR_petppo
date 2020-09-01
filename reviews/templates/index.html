@@ -22,13 +22,13 @@
 						<a href="../welcome/">Home</a>
 						<a href="../review/location/">지역으로 찾기</a>
 						<a href="../review/symptom/">병명으로 찾기</a>
-						<a href="../review/write/">리뷰작성하기</a>
 						{% if user.is_authenticated %}
+							<a href="../review/write/">리뷰작성하기</a>
 							<a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
 						{% else %}
 							<a class="nav-link" href="{% url 'common:login' %}">로그인</a>
+							<a href="../users/signup/">회원가입</a>
 						{% endif %}
-						<a href="../users/signup/">회원가입</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>
@@ -98,9 +98,15 @@
 							<p>물론 당신도 리뷰를 통해 당신의 경험을 다른 사람들과 공유할 수 있습니다.</p>
 							<p>당신의 반려동물을 위해 함께해주세요.</p>
 							<p><strong>PETPPO</strong></p>
-							<footer>
-								<a href="../users/signup/" class="button special">SIGN UP</a>
-							</footer>
+							{% if user.is_authenticated %}
+								<footer>
+									<a href="../review/write/" class="button special">리뷰 작성하기</a>
+								</footer>
+							{% else %}
+								<footer>
+									<a href="../users/signup/" class="button special">SIGN UP</a>
+								</footer>
+							{% endif %}
 						</article>
 					</div>
 				</div>
