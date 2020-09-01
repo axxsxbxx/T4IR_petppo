@@ -13,7 +13,7 @@ def search1(request, location) :
     paginator = Paginator(rlist, 5)
     rlistpage = paginator.get_page(page)
     context = {"rlist": rlistpage}
-    return render(request, 'symptom.html', context)
+    return render(request, 'search.html', context)
 
 def findsymptom(request, id=0):
     if id == 0:
