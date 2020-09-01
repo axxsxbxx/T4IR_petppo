@@ -49,7 +49,7 @@ def register(request):
 
         try:    #이메일 중복체크
             asked_user = Members.objects.get(email=email)
-            results['error'] = asked_user.username + ' : 사용중인 이메일입니다.'
+            results['error'] = asked_user.email + ' : 사용중인 이메일입니다.'
             return render(request, 'signup.html', results)
         except ObjectDoesNotExist:
             pass
