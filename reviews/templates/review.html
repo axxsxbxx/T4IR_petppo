@@ -97,6 +97,7 @@
 								<td>{{comment.commentdate}}</td>
 							</tr>
 						{% endfor %}
+						{% if user.is_authenticated %}
 						<tr>
 							<form method="post" action="/review/commentwrite/">
 								{% csrf_token %}
@@ -107,6 +108,7 @@
 								<td width="20%" style="text-align: center;"><input type="submit" value="댓글작성"></td>
 							</form>
 						</tr>
+						{% endif %}
 					</table>
 						{% endif %}
 				</div>

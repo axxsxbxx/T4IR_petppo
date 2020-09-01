@@ -1,76 +1,97 @@
-{% extends 'loginbase.html' %}
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		{% load static %}
+		<title>PETPPO Login</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+	</head>
+	<body class="subpage">
 
-{% block css %}
-#loginform{
-  width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
-}
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="/welcome/" class="logo">PETPPO</a>
+					<nav id="nav">
+						<a href="/welcome/">Home</a>
+						<a href="/review/location/">지역으로 찾기</a>
+						<a href="/review/symptom/">병명으로 찾기</a>
+						{% if user.is_authenticated %}
+							<a href="/review/write/">리뷰작성하기</a>
+							<a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
+						{% else %}
+							<a class="nav-link" href="{% url 'common:login' %}">로그인</a>
+							<a href="/users/signup/">회원가입</a>
+						{% endif %}
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
 
-.post-form{
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);}
+		<!-- Three -->
+			<section id="three" class="wrapper">
+				<div class="inner">
+					<header class="align-center">
+						<h2>로그인</h2>
+						<p>이미 PETPPO와 함께 하고 계신가요?</p>
+					</header>
+					<p></p>
+					<div class="flex flex-2">
+						<div class="container my-3" id ="loginform" >
+                            <form method="post" class="post-form" action="{% url 'common:login' %}">
+                                {% csrf_token %}
+                                {% include "form_errors.html" %}
+                                <div class="form-group">
+                                    <label for="username">User ID</label>
+                                    <input type="text" class="form-control" name="username" id="username"
+                                           value="{{ form.username.value|default_if_none:'' }}" placeholder="Enter your ID">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" name="password" id="password"
+                                           value="{{ form.password.value|default_if_none:'' }}" placeholder="Enter your Password">
+                                </div>
+                                <br>
+                                <div>
+                                <button type="submit" class="btn btn-primary" id="loginbtn">login</button><br><br>
+                                Not registered? <a href="/users/signup/">Create an account</a>
+                                </div>
+                            </form>
+                        </div>
+					</div>
+				</div>
+			</section>
 
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="flex">
+						<div class="copyright">
+							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+						</div>
+						<ul class="icons">
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</footer>
 
-#loginbtn {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-p {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
 
-a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-{% endblock %}
-
-{% block content %}
- <div class="container my-3" id ="loginform" >
-    <form method="post" class="post-form" action="{% url 'common:login' %}">
-        {% csrf_token %}
-        {% include "form_errors.html" %}
-        <div class="form-group">
-            <label for="username">User ID</label>
-            <input type="text" class="form-control" name="username" id="username"
-                   value="{{ form.username.value|default_if_none:'' }}" placeholder="Enter your ID">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" id="password"
-                   value="{{ form.password.value|default_if_none:'' }}" placeholder="Enter your Password">
-        </div>
-        <button type="submit" class="btn btn-primary" id="loginbtn">login</button>
-        <p class="message">Not registered? <a href="#">Create an account</a></p>
-    </form>
-</div>
-{% endblock %}
+	</body>
+</html>

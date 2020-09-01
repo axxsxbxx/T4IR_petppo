@@ -38,6 +38,7 @@
 		<!-- Three -->
 			<section id="three" class="wrapper">
 				<div class="inner">
+					{% if user.is_authenticated %}
 					<header class="align-center">
 						<h2>리뷰 작성</h2>
 						<p>당신의 경험을 들려주세요 </p>
@@ -103,10 +104,15 @@
 									</tr>
 									<tr>
 										<td><input type="submit" value="다 작성했어요"></td>
-										<td><input type="reset" value="다시 작성할래요"></td>
+										<td><input type="reset" value="다시 작성할래요" class="alt"></td>
 									</tr>
 								</table>
 							</form>
+					{% else %}
+					<h2 style="text-align:center;">로그인이 필요한 페이지입니다.</h2>
+					<p style="text-align:center;"><a href="/common/login/" class="button special">로그인</a>
+						<a href="/users/signup/" class="button special">회원가입</a></p>
+					{% endif %}
 					<div class="flex flex-2">
 						<article>
 							<div class="image fit">
