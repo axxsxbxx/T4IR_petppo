@@ -32,7 +32,7 @@
 
 ## 	4. 데이터 모델
 
-![데이터모델링](C:\Users\LG\Downloads\DB모델링.png)
+![데이터모델링](/dbmodel.png)
 
 ## 5. 프로젝트 수행 도구
 
