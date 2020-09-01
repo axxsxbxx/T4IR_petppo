@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for about in aboutwhat%}
+    <table>
+        <tr>
+
+            <td>{{ about.location }}</td>
+            <td>{{ about.content }}</td>
+            <td>{{ about.title }}</td>
+        </tr>
+    </table>
+{% endfor %}
+</body>
+</html>

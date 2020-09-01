@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		{% load static %}
+		<title>PETPPO 병명으로 찾기</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="/welcome/" class="logo">PETPPO</a>
+					<nav id="nav">
+						<a href="/welcome/">Home</a>
+						<a href="/review/location/">지역으로 찾기</a>
+						<a href="/review/symptom/">병명으로 찾기</a>
+						<a href="/review/write/">리뷰작성하기</a>
+						<a href="/users/login/">로그인</a>
+						<a href="/users/signup/">회원가입</a>
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+
+		<!-- Three -->
+			<section id="three" class="wrapper">
+				<div class="inner">
+						<div>
+							{% if review %}
+							<header class="align-center">
+								<h2>{{ review.nickname.nickname }}님의 리뷰</h2>
+							</header>
+							<table>
+							<tr>
+								<td><strong>병원 이름</strong></td>
+								<td>{{ review.location }}</td>
+							</tr>
+							<tr>
+								<td><strong>방문 일자</strong></td>
+								<td>{{ review.visitdate }}</td>
+							</tr>
+							<tr>
+								<td><strong>증상</strong></td>
+								<td>{{ review.symp_id }}</td>
+							</tr>
+							<tr>
+								<td><strong>작성자</strong></td>
+								<td>{{ review.nickname.nickname }}</td>
+							</tr>
+							<tr>
+								<td><strong>작성 일자</strong></td>
+								<td>{{ review.writedate }}</td>
+							</tr>
+							<tr>
+								<td><strong>제목</strong></td>
+								<td>{{ review.title }}</td>
+							</tr>
+							<tr>
+								<td><strong>내용</strong></td>
+								<td>{{ review.content }}</td>
+							</tr>
+							<tr>
+								<td><strong>평가점수</strong></td>
+								<td>&#10084; {{ review.rate }}</td>
+							</tr>
+							<tr>
+								<td><strong>영수증</strong></td>
+								<td><img src="{{ review.receipt.url }}" width="200"></td>
+							</tr>
+							</table>
+							{% else %}
+							<h2>{{msg}}</h2>
+							{% endif %}
+							<button onclick="location.href='/review/symptom/'">병명으로 찾기</button>
+							<button onclick="location.href='/review/location/'">지역으로 찾기</button>
+						</div>
+					<div>
+						<br><br>
+						{% if review %}
+					<table>
+						<tr>
+							<form method="post" action="/review/commentwrite/">
+								{% csrf_token %}
+								<input type="hidden" name="contentsnumber_id" value="{{ review.id }}">
+								<td width="20%"><input type="text" name="nickname_id"></td>
+								<td width="65%"><input type="text" name="commenttext"></td>
+								<td width="15%"><input type="submit" value="댓글작성"></td>
+							</form>
+						</tr>
+					</table>
+						{% endif %}
+				</div>
+
+
+				</div>
+			</section>
+
+
+		<footer id="footer">
+				<div class="inner">
+					<div class="flex">
+						<div class="copyright">
+							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+						</div>
+						<ul class="icons">
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+	</body>
+</html>

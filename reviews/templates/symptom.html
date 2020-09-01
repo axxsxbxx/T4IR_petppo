@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		{% load static %}
+		<title>PETPPO 병명으로 찾기</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="/welcome/" class="logo">PETPPO</a>
+					<nav id="nav">
+						<a href="/welcome/">Home</a>
+						<a href="/review/location/">지역으로 찾기</a>
+						<a href="/review/symptom/">병명으로 찾기</a>
+						<a href="/review/write/">리뷰작성하기</a>
+						<a href="/users/login/">로그인</a>
+						<a href="/users/signup/">회원가입</a>
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+
+		<!-- Three -->
+			<section id="three" class="wrapper">
+				<div class="inner">
+					<header class="align-center">
+						<h2>병명으로 찾기</h2>
+						<p>반려동물의 병을 고쳐줄 명의를 찾아보세요 </p>
+					</header>
+					<div class="inner">
+						<h3>어디가 불편한가요?</h3>
+						<div>
+							<table>
+								<tr>
+									<form method="post">
+									<td>
+										{% csrf_token %}
+										<select name="symp_filter">
+											<option value="전체">전체 리뷰 확인</option>
+											<option value="안구">안구와 관련된 리뷰</option>
+											<option value="구강">구강과 관련된 리뷰</option>
+											<option value="귀">귀와 관련된 리뷰</option>
+											<option value="피부">피부와 관련된 리뷰</option>
+											<option value="암">암과 관련된 리뷰</option>
+											<option value="뼈/관절">뼈/관절과 관련된 리뷰</option>
+											<option value="순환기">순환기와 관련된 리뷰</option>
+											<option value="비뇨기/생식기">비뇨기/생식기와 관련된 리뷰</option>
+											<option value="호르몬">호르몬과 관련된 리뷰</option>
+											<option value="알레르기">알레르기와 관련된 리뷰</option>
+											<option value="뇌/신경">뇌/신경과 관련된 리뷰</option>
+										</select>
+									</td>
+									<td>
+										<input type="submit" value="검색">
+									</form>
+									</td>
+							</tr>
+							</table>
+						</div>
+						<div>
+							{% if rlist %}
+								<table>
+									<tr>
+										<td><strong>병원 이름</strong></td>
+										<td><strong>증상</strong></td>
+										<td><strong>제목</strong></td>
+										<td><strong>작성자</strong></td>
+									</tr>
+									{% for board in rlist %}
+									<tr onclick="location.href='/review/{{board.id}}/'">
+										<td>{{board.location}}</td>
+										<td>{{board.symp_id}}</td>
+										<td>{{board.title}}</td>
+										<td>{{board.nickname.nickname}}</td>
+									</tr>
+									{% endfor %}
+								</table>
+							<div>
+								{% if rlist.has_previous %}
+								<a href="?page={{rlist.number|add:-1}}"><<</a>
+								{% endif %}
+								Page {{rlist.number}} / {{rlist.paginator.num_pages}}
+								{% if rlist.has_next %}
+								<a href="?page={{rlist.number|add:+1}}">>></a>
+								{% endif %}
+							</div>
+							{% endif %}
+						</div>
+
+				</div>
+				</div>
+
+			</section>
+
+		</div>
+				<
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="flex">
+						<div class="copyright">
+							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+						</div>
+						<ul class="icons">
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script>
+			$(document).ready(function(){
+				showreview(id){
+				        location.href = "{% url 'symptom' %}"+id+"/";
+				 }
+			});
+
+			</script>
+
+	</body>
+</html>

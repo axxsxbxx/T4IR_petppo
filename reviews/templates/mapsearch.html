@@ -1,0 +1,163 @@
+{% extends 'basesimple.html' %}
+
+{% block headcontent %}
+<style type="text/css">
+      #map {
+        width: 600px;
+        height: 400px;
+        margin: auto;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-top: 15px;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 360px;
+        height: 30px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #target {
+        width: 345px;
+      }
+    </style>
+{% endblock %}
+
+{% block mycss %}
+
+{% endblock %}
+
+{% block mycontent %}
+    {% load static %}
+    <script src="{% static 'js/markerclusterer.js' %}"></script>
+    <script src="{% static 'js/animal1.js' %}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClwko6XZKvMTk6PKsc-2JZWll06-UF-9g&callback=initAutocomplete&libraries=places&v=weekly">
+    </script>
+    <input
+      id="pac-input"
+      class="controls"
+      type="text"
+      placeholder="장소 검색"
+    />
+    <div id="map"></div>
+    <script>
+        "use strict";
+        var markers = [];
+
+        function initAutocomplete() {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 37.566, lng: 126.978},
+                zoom: 10,
+                mapTypeId: "roadmap"
+            });
+            const input = document.getElementById("pac-input");
+            const searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            for (var i=0;i<animal.length;i++){
+                if (animal[i].state == "정상"){
+                    var latLng = new google.maps.LatLng(animal[i].lat,animal[i].lng);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map:map
+                    });
+                    markers.push(marker);
+                 }
+                var infowindow = new google.maps.InfoWindow();
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                    infowindow.setContent(animal[i].name);
+                    infowindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+            var markerCluster = new MarkerClusterer(map, markers, {gridSize: 50});
+
+            searchBox.addListener("places_changed", () => {
+                const places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                    return;
+                }
+
+                const bounds = new google.maps.LatLngBounds();
+                places.forEach(place => {
+                    if (!place.geometry) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+
+                    if (place.geometry.viewport) {
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                map.fitBounds(bounds);
+             });
+         }
+    </script>
+{% endblock %}
