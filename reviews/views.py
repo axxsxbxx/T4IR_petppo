@@ -57,7 +57,7 @@ def writereview(request):
                           rate=rate, visitdate=visitdate, symp_id=symp_id,
                           receipt=receipt, nickname_id=nickname_id)
         review.save()
-        return redirect("welcome")
+        return redirect("/review/symptom/")
     else:
         return render(request, "write.html")
 
