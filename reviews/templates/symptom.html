@@ -46,9 +46,9 @@
 						<div>
 							<table>
 								<tr>
-									<form method="post">
+									<form method="get">
+										<input type="hidden" name="page" value="1">
 									<td>
-										{% csrf_token %}
 										<select name="symp_filter">
 											<option value="전체">전체 리뷰 확인</option>
 											<option value="안구">안구와 관련된 리뷰</option>
@@ -65,7 +65,7 @@
 										</select>
 									</td>
 									<td>
-										<input type="submit" value="검색">
+										<input type="submit" value="검색" class="button special icon fa-search">
 									</form>
 									</td>
 							</tr>
@@ -75,10 +75,10 @@
 							{% if rlist %}
 								<table>
 									<tr>
-										<td><strong>병원 이름</strong></td>
-										<td><strong>증상</strong></td>
-										<td><strong>제목</strong></td>
-										<td><strong>작성자</strong></td>
+										<td width="30%"><strong>병원 이름</strong></td>
+										<td width="10%"><strong>증상</strong></td>
+										<td width="50%"><strong>제목</strong></td>
+										<td width="10%"><strong>작성자</strong></td>
 									</tr>
 									{% for board in rlist %}
 									<tr onclick="location.href='/review/{{board.id}}/'">
@@ -89,13 +89,13 @@
 									</tr>
 									{% endfor %}
 								</table>
-							<div>
+							<div style="text-align:center;">
 								{% if rlist.has_previous %}
-								<a href="?page={{rlist.number|add:-1}}"><<</a>
+								<a href="../symptom/?page={{rlist.number|add:-1}}&symp_filter={{symp_filter}}"><<</a>
 								{% endif %}
 								Page {{rlist.number}} / {{rlist.paginator.num_pages}}
 								{% if rlist.has_next %}
-								<a href="?page={{rlist.number|add:+1}}">>></a>
+								<a href="../symptom/?page={{rlist.number|add:+1}}&symp_filter={{symp_filter}}">>></a>
 								{% endif %}
 							</div>
 							{% endif %}

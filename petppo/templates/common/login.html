@@ -32,7 +32,7 @@
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #4CAF50;
+  background: #459e6b;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -70,7 +70,7 @@ a {
                    value="{{ form.password.value|default_if_none:'' }}" placeholder="Enter your Password">
         </div>
         <button type="submit" class="btn btn-primary" id="loginbtn">login</button>
-        <p class="message">Not registered? <a href="#">Create an account</a></p>
+        <p class="message">Not registered? <a href="/users/signup/">Create an account</a></p>
     </form>
 </div>
 {% endblock %}

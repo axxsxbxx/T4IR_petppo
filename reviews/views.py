@@ -15,21 +15,20 @@ def search1(request, location) :
     context = {"rlist": rlistpage}
     return render(request, 'search.html', context)
 
-def findsymptom(request, id=0):
-    if id == 0:
-        symp_filter=request.POST.get('symp_filter')
-        if symp_filter == "전체":
-            page = request.GET.get('page', 1)
-            rlist = Contents.objects.filter().order_by("-id")
-            paginator = Paginator(rlist, 5)
-            rlistpage = paginator.get_page(page)
-            context = {"rlist": rlistpage}
-        else:
-            page = request.GET.get('page', 1)
-            rlist = Contents.objects.filter(symp_id=symp_filter).order_by("-id")
-            paginator = Paginator(rlist, 5)
-            rlistpage = paginator.get_page(page)
-            context = {"rlist":rlistpage}
+def findsymptom(request):
+    symp_filter=request.GET.get('symp_filter')
+    if symp_filter == "전체":
+        page = request.GET.get('page', 1)
+        rlist = Contents.objects.filter().order_by("-id")
+        paginator = Paginator(rlist, 5)
+        rlistpage = paginator.get_page(page)
+        context = {"rlist": rlistpage, "symp_filter": symp_filter}
+    else:
+        page = request.GET.get('page', 1)
+        rlist = Contents.objects.filter(symp_id=symp_filter).order_by("-id")
+        paginator = Paginator(rlist, 5)
+        rlistpage = paginator.get_page(page)
+        context = {"rlist":rlistpage, "symp_filter": symp_filter}
     return render(request, "symptom.html", context)
 
 def showreview(request, id):
