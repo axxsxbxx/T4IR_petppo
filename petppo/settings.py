@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'common.apps.CommonConfig',
     'users',
     'reviews',
     'django.contrib.admin',
@@ -127,3 +128,8 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 MEDIA_URL ='/media/'
 MEDOA_ROOT = os.path.join(BASE_DIR,'media')
+
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
