@@ -90,6 +90,11 @@
         		width: 345px;
       		}
 
+      		#searchReview{
+      			width:70%;
+      			margin:auto;
+      		}
+
     	</style>
 	</head>
 	<body class="subpage">
@@ -123,6 +128,40 @@
 					</header>
 					<input id="pac-input" class="controls" type="text" placeholder="장소 검색"/>
 					<div id="map"></div>
+				</div>
+				<div style="margin-top:20px;">
+					{% if rlist %}
+					<table id="searchReview">
+						<tr>
+							<td><strong>병원 이름</strong></td>
+							<td><strong>증상</strong></td>
+							<td><strong>제목</strong></td>
+							<td><strong>작성자</strong></td>
+						</tr>
+						{% for board in rlist %}
+						<tr onclick="location.href='/review/{{board.id}}/'">
+							<td>{{board.location}}</td>
+							<td>{{board.symp_id}}</td>
+							<td>{{board.title}}</td>
+							<td>{{board.nickname.nickname}}</td>
+						</tr>
+						{% endfor %}
+					</table>
+					<div style="text-align:center">
+					{% if rlist.has_previous %}
+						<a href="?page={{rlist.number|add:-1}}"><<</a>
+					{% endif %}
+						Page {{rlist.number}} / {{rlist.paginator.num_pages}}
+						{% if rlist.has_next %}
+						<a href="?page={{rlist.number|add:+1}}">>></a>
+						{% endif %}
+					</div>
+					{% else %}
+					<script>
+						alert("해당 병원의 리뷰가 아직 없습니다.");
+                        location.href = "{% url 'location' %}";
+					</script>
+					{% endif %}
 				</div>
 			</section>
 
