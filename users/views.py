@@ -1,17 +1,29 @@
-from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth import REDIRECT_FIELD_NAME, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import SuccessURLAllowedHostsMixin
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import FormView
+from django.views.generic.base import View
 
 from reviews.models import Contents
 from .models import Members
 from django.shortcuts import render
 from django.contrib.auth.hashers import make_password, check_password  #비밀번호 암호화
-from django.core.exceptions import ObjectDoesNotExist   #이메일 중복 체크
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied  # 이메일 중복 체크
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth, messages
+
+#비밀번호 찾기
+from django.utils.decorators import method_decorator
+#from .decorators import login_message_required, admin_required, logout_message_required
+from .forms import RecoveryPwForm
+from .helper import send_mail, email_auth_num
+from django.http import HttpResponse
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+from django.template.loader import render_to_string
+from .forms import CustomSetPasswordForm
 
 
 def petppologin(request):
@@ -30,6 +42,9 @@ class LoginView(SuccessURLAllowedHostsMixin, FormView):
     template_name = 'registration/login.html'
     redirect_authenticated_user = False
     extra_context = None
+
+
+
 
 
 def register(request):
@@ -67,7 +82,7 @@ def register(request):
             elif len(password) > 20:
                 results['error'] = '비밀번호는 최대 12글자입니다.'
 
-            #elif not password == re_password:
+            #elif not password == re-password:
             #    results['error'] = '비밀번호가 일치하지 않습니다.'
 
             else:   #입력값 DB에 등록.    #장고에서 제공하는 비밀번호 암호화/복호화
@@ -90,3 +105,81 @@ def myreview(request):
     context = {"rlist": rlistpage}
 
     return render(request, 'mypage.html', context)
+
+
+
+
+
+
+# 비밀번호찾기
+#@method_decorator(logout_message_required, name='dispatch')
+class RecoveryPwView(View):
+    template_name = 'users/recovery_pw.html'
+    recovery_pw = RecoveryPwForm
+
+    def get(self, request):
+        if request.method=='GET':
+            form_pw = self.recovery_pw(None)
+            return render(request, self.template_name, { 'form_pw':form_pw, })
+
+
+def ajax_find_pw_view(request):
+    #user_id = request.POST.get('user_id')
+    name = request.POST.get('name')
+    email = request.POST.get('email')
+    result_pw = User.objects.get(name=name, email=email)    #user_id=user_id,
+
+    if result_pw:
+        auth_num = email_auth_num()
+        result_pw.auth = auth_num
+        result_pw.save()
+
+        send_mail(
+            '[RE:PASSWORD] 비밀번호 찾기 인증메일입니다.',
+            [email],
+            html=render_to_string('users/recovery_email.html', {
+                'auth_num': auth_num,
+            }),
+        )
+    # print(auth_num)
+    return HttpResponse(json.dumps({"result": result_pw.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
+
+
+def auth_confirm_view(request):
+    # if request.method=='POST' and 'auth_confirm' in request.POST:
+    email = request.POST.get('email')
+    input_auth_num = request.POST.get('input_auth_num')
+    user = User.objects.get(email=email, auth=input_auth_num)
+    # login(request, user)
+    user.auth = ""
+    user.save()
+    request.session['auth'] = user.email
+
+    return HttpResponse(json.dumps({"result": user.email}, cls=DjangoJSONEncoder), content_type="application/json")
+
+#@logout_message_required
+def auth_pw_reset_view(request):
+    if request.method == 'GET':
+        if not request.session.get('auth', False):
+            raise PermissionDenied
+
+    if request.method == 'POST':
+        session_user = request.session['auth']
+        current_user = User.objects.get(user_id=session_user)
+        # del(request.session['auth'])
+        login(request, current_user)
+
+        reset_password_form = CustomSetPasswordForm(request.user, request.POST)
+
+        if reset_password_form.is_valid():
+            user = reset_password_form.save()
+            messages.success(request, "비밀번호 변경완료! 변경된 비밀번호로 로그인하세요.")
+            logout(request)
+            return redirect('users:login')
+        else:
+            logout(request)
+            request.session['auth'] = session_user
+    else:
+        reset_password_form = CustomSetPasswordForm(request.user)
+
+    return render(request, 'users/password_reset.html', {'form': reset_password_form})
