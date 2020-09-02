@@ -44,38 +44,47 @@
 							</header>
 							<table>
 							<tr>
-								<td><strong>병원 이름</strong></td>
+								<td width="5%"></td>
+								<td width="15%"><strong>병원 이름</strong></td>
 								<td>{{ review.location }}</td>
 							</tr>
 							<tr>
+								<td></td>
 								<td><strong>방문 일자</strong></td>
 								<td>{{ review.visitdate }}</td>
 							</tr>
 							<tr>
+								<td></td>
 								<td><strong>증상</strong></td>
 								<td>{{ review.symp_id }}</td>
 							</tr>
 							<tr>
+								<td></td>
 								<td><strong>작성자</strong></td>
 								<td>{{ review.nickname.nickname }}</td>
 							</tr>
 							<tr>
+								<td></td>
 								<td><strong>작성 일자</strong></td>
 								<td>{{ review.writedate }}</td>
 							</tr>
 							<tr>
+								<td></td>
 								<td><strong>제목</strong></td>
 								<td>{{ review.title }}</td>
 							</tr>
 							<tr>
+								<td></td>
 								<td><strong>내용</strong></td>
-								<td>{{ review.content }}</td>
+								<td><pre style="font-family: FontAwesome; font-size: 1em;">{{ review.content }}</pre></td>
 							</tr>
 							<tr>
+								<td></td>
 								<td><strong>평가점수</strong></td>
 								<td>&#10084; {{ review.rate }}</td>
 							</tr>
 							<tr>
+								<td></td>
 								<td><strong>영수증</strong></td>
 								<td><img src="{{ review.receipt.url }}" width="200"></td>
 							</tr>
@@ -85,6 +94,9 @@
 							{% endif %}
 							<button onclick="location.href='/review/symptom/?symp_filter=전체'">병명으로 찾기</button>
 							<button onclick="location.href='/review/location/'">지역으로 찾기</button>
+							{% if user.is_authenticated %}
+							<button onclick="location.href='/users/mypage/'">내 리뷰 확인</button>
+							{% endif %}
 						</div>
 					<div>
 						<br><br>
