@@ -75,3 +75,12 @@ def writecomment(request):
 
 def mapsearch(request):
     return render(request, 'mapsearch.html', None)
+
+def heart(request, id):
+    try:
+        review = Contents.objects.get(id=id)
+        review.recommend += 1
+        review.save()
+        return redirect("/review/"+str(id)+"/")
+    except Contents.DoesNotExist:
+        return redirect("/review/"+str(id)+"/")
