@@ -20,7 +20,7 @@
 					<a href="/welcome/" class="logo">PETPPO</a>
 					<nav id="nav">
 						<a href="/welcome/">Home</a>
-						<a href="/review/location/">지역으로 찾기</a>
+						<a href="/review/location/">병원으로 찾기</a>
 						<a href="/review/symptom/?symp_filter=전체">병명으로 찾기</a>
 						{% if user.is_authenticated %}
 							<a href="/review/write/">리뷰작성하기</a>
@@ -93,7 +93,7 @@
 							<h2>{{msg}}</h2>
 							{% endif %}
 							<button onclick="location.href='/review/symptom/?symp_filter=전체'">병명으로 찾기</button>
-							<button onclick="location.href='/review/location/'">지역으로 찾기</button>
+							<button onclick="location.href='/review/location/'">병원으로 찾기</button>
 							{% if user.is_authenticated %}
 							<button onclick="location.href='/users/mypage/'">내 리뷰 확인</button>
 							{% endif %}
