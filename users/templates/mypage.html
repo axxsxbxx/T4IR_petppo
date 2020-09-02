@@ -21,7 +21,7 @@
 					<nav id="nav">
 						<a href="/welcome/">Home</a>
 						<a href="/review/location/">지역으로 찾기</a>
-						<a href="/review/symptom/?symp_filter=전체">병명으로 찾기</a>
+						<a href="/review/symptom/">병명으로 찾기</a>
 						{% if user.is_authenticated %}
 							<a href="/review/write/">리뷰작성하기</a>
 							<a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
@@ -42,32 +42,12 @@
 						<p>반려동물의 병을 고쳐줄 명의를 찾아보세요 </p>
 					</header>
 					<div class="inner">
-						<h3>어디가 불편한가요?</h3>
-						<div>
-							<table>
-								<tr>
-									<form method="get">
-										<input type="hidden" name="page" value="1">
-									<td>
-										<select onchange="window.location.href=this.value">
-											<option value="?symp_filter=전체">전체 리뷰 확인</option>
-											<option value="?symp_filter=안구">안구와 관련된 리뷰</option>
-											<option value="?symp_filter=구강">구강과 관련된 리뷰</option>
-											<option value="?symp_filter=귀">귀와 관련된 리뷰</option>
-											<option value="?symp_filter=피부">피부와 관련된 리뷰</option>
-											<option value="?symp_filter=암">암과 관련된 리뷰</option>
-											<option value="?symp_filter=뼈/관절">뼈/관절과 관련된 리뷰</option>
-											<option value="?symp_filter=순환기">순환기와 관련된 리뷰</option>
-											<option value="?symp_filter=비뇨기/생식기">비뇨기/생식기와 관련된 리뷰</option>
-											<option value="?symp_filter=호르몬">호르몬과 관련된 리뷰</option>
-											<option value="?symp_filter=알레르기">알레르기와 관련된 리뷰</option>
-											<option value="?symp_filter=뇌/신경">뇌/신경과 관련된 리뷰</option>
-										</select>
-									</td>
-									</form>
-							</tr>
-							</table>
-						</div>
+						<h3>내가 작성한 리뷰</h3>
+						<form method="POST">
+							{% csrf_token %}
+							<input type="hidden" name="petppoid" value="{{ user.username }}">
+							<button type="submit">검색</button>
+						</form>
 						<div>
 							{% if rlist %}
 								<table>

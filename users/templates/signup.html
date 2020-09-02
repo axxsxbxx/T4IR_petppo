@@ -8,11 +8,10 @@
 	<head>
 		{% load static %}
 		<title>PETPPO Sign UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 	</head>
-
 	<body class="subpage">
 
 		<!-- Header -->
@@ -22,7 +21,7 @@
 					<nav id="nav">
 						<a href="/welcome/">Home</a>
 						<a href="/review/location/">지역으로 찾기</a>
-						<a href="/review/symptom/">병명으로 찾기</a>
+						<a href="/review/symptom/?symp_filter=전체">병명으로 찾기</a>
 						{% if user.is_authenticated %}
                             <a href="/review/write/">리뷰작성하기</a>
 							<a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
@@ -35,35 +34,98 @@
 				</div>
 			</header>
 
+
 		<!-- Three -->
-			<!--<section id="three" class="wrapper">
+			<section id="three" class="wrapper">
 				<div class="inner">
 					<header class="align-center">
 						<h2>회원가입</h2>
 						<p>PETPPO와 함께하세요 </p>
 					</header>
-					<p></p>
-					<div class="flex flex-2">
-						<article>
-						</article>
+                        <div class="row mt-5">    <!--이메일 중복시 알림말-->
+                            <div class="col-12" style="color:purple; font-size:20px">
+                                {{ error }}<br>
+                            </div>
+                        </div>
+                        <div>
+                            <form method="POST" action=".">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="email">이메일</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요 (최대 20글자)" required/>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="name">이름</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요" required/>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="password">비밀번호</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요 (최대 20글자)" required/>
+                                </div><br>
+                                <!--<div class="form-group">
+                                    <label for="re-password">비밀번호확인</label>
+                                     <input type="password" class="form-control" id="re-password" name="re-password" placeholder="비밀번호를 한 번 더 입력하세요"/>
+                                </div> -->
+                                <div class="form-group">
+                                    <label for="nickname">닉네임</label>
+                                    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임을 입력하세요"/>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="addr">주소</label>
+                                    <select name="addr_id" id="addr">
+                                        <option value="광진구">광진구</option>
+                                        <option value="강동구">강동구</option>
+                                        <option value="송파구">송파구</option>
+                                        <option value="강남구">강남구</option>
+                                        <option value="서초구">서초구</option>
+                                        <option value="관악구">관악구</option>
+                                        <option value="동작구">동작구</option>
+                                        <option value="금천구">금천구</option>
+                                        <option value="영등포구">영등포구</option>
+                                        <option value="구로구">구로구</option>
+                                        <option value="양천구">양천구</option>
+                                        <option value="강서구">강서구</option>
+                                        <option value="중랑구">중랑구</option>
+                                        <option value="노원구">노원구</option>
+                                        <option value="도봉구">도봉구</option>
+                                        <option value="강북구">강북구</option>
+                                        <option value="성북구">성북구</option>
+                                        <option value="동대문구">동대문구</option>
+                                        <option value="성동구">성동구</option>
+                                        <option value="용산구">용산구</option>
+                                        <option value="중구">중구</option>
+                                        <option value="종로구">종로구</option>
+                                        <option value="은평구">은평구</option>
+                                        <option value="서대문구">서대문구</option>
+                                        <option value="마포구">마포구</option>
+                                    </select>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="kind">동물종류</label>
+                                    <input type="text" class="form-control" id="kind" name="kind" placeholder="동물종류를 입력하세요"/>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="petage">나이</label>
+                                    <input type="number" class="form-control" id="petage" name="petage" placeholder="나이를 입력하세요"/>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="petgender">성별</label>
+                                    <input type="text" class="form-control" id="petgender" name="petgender" placeholder="성별을 입력하세요"/>
+                                </div><br>
+                                <div style="text-align:center">
+                                    <button type="submit">가입</button></div><br><br><br><br>
+                            </form>
+                        </div>
 					</div>
 				</div>
-			</section> -->
+			</section>
+
 
 		<!-- Scripts -->
 			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
 			<script src="{% static 'assets/js/skel.min.js' %}"></script>
 			<script src="{% static 'assets/js/util.js' %}"></script>
 			<script src="{% static 'assets/js/main.js' %}"></script>
-
-            <div class="container">
-                        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-            <link
-              rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous"
-            />
             <script
               src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
               integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -80,90 +142,7 @@
               crossorigin="anonymous"
             ></script>
 
-          <div class="row mt-5">
-            <div class="col-12 text-center">
-              <h1>회원가입</h1>
-              <p>PETPPO와 함께하세요 </p>
-            </div>
-          </div>
-          <div class="row mt-5">    <!--이메일 중복시 알림말-->
-            <div class="col-12" style="color:purple; font-size:20px">
-                {{ error }}
-            </div>
-          </div>
-          <div class="row mt-5">
-            <div class="col-12">
-              <form method="POST" action=".">
-                {% csrf_token %}
-                <div class="form-group">
-                  <label for="email">이메일</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요 (최대 20글자)" required/>
-                </div><br>
-                <div class="form-group">
-                  <label for="name">이름</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요" required/>
-                </div><br>
-                <div class="form-group">
-                  <label for="password">비밀번호</label>
-                  <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요 (최대 20글자)" required/>
-                </div><br>
-                <!--<div class="form-group">
-                  <label for="re-password">비밀번호확인</label>
-                  <input type="password" class="form-control" id="re-password" name="re-password" placeholder="비밀번호를 한 번 더 입력하세요"/>
-                </div> -->
-                <div class="form-group">
-                  <label for="nickname">닉네임</label>
-                  <input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임을 입력하세요"/>
-                </div><br>
-                <div class="form-group">
-                  <label for="addr">주소</label>
-                    <select name="addr_id" id="addr">
-                      <option value="광진구">광진구</option>
-                      <option value="강동구">강동구</option>
-                      <option value="송파구">송파구</option>
-                      <option value="강남구">강남구</option>
-                      <option value="서초구">서초구</option>
-                      <option value="관악구">관악구</option>
-                      <option value="동작구">동작구</option>
-                      <option value="금천구">금천구</option>
-                      <option value="영등포구">영등포구</option>
-                      <option value="구로구">구로구</option>
-                      <option value="양천구">양천구</option>
-                        <option value="강서구">강서구</option>
-                      <option value="중랑구">중랑구</option>
-                      <option value="노원구">노원구</option>
-                      <option value="도봉구">도봉구</option>
-                      <option value="강북구">강북구</option>
-                      <option value="성북구">성북구</option>
-                      <option value="동대문구">동대문구</option>
-                      <option value="성동구">성동구</option>
-                      <option value="용산구">용산구</option>
-                      <option value="중구">중구</option>
-                      <option value="종로구">종로구</option>
-                      <option value="은평구">은평구</option>
-                      <option value="서대문구">서대문구</option>
-                      <option value="마포구">마포구</option>
-                    </select>
-                </div><br>
-                <div class="form-group">
-                  <label for="kind">동물종류</label>
-                  <input type="text" class="form-control" id="kind" name="kind" placeholder="동물종류를 입력하세요"/>
-                </div><br>
-                <div class="form-group">
-                  <label for="petage">나이</label>
-                  <input type="number" class="form-control" id="petage" name="petage" placeholder="나이를 입력하세요"/>
-                </div><br>
-                <div class="form-group">
-                  <label for="petgender">성별</label>
-                  <input type="text" class="form-control" id="petgender" name="petgender" placeholder="성별을 입력하세요"/>
-                </div><br>
 
-                <div style="text-align:center">
-                <button type="submit">가입</button></div><br><br><br><br>
-              </form>
-            </div>
-          </div>
-        </div>
 			<!-- Footer -->
 			<footer id="footer">
 				<div class="inner">
@@ -181,6 +160,5 @@
 					</div>
 				</div>
 			</footer>
-
-	</body>
+</body>
 </html>
