@@ -1,9 +1,11 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import SuccessURLAllowedHostsMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.generic import FormView
 
+from reviews.models import Contents
 from .models import Members
 from django.shortcuts import render
 from django.contrib.auth.hashers import make_password, check_password  #비밀번호 암호화
@@ -79,3 +81,12 @@ def register(request):
 
         return render(request, 'signup.html', results)
 
+def myreview(request):
+    petppoid = request.POST.get('petppoid')
+    page = request.GET.get('page', 1)
+    rlist = Contents.objects.filter(nickname_id=petppoid).order_by("-id")
+    paginator = Paginator(rlist, 5)
+    rlistpage = paginator.get_page(page)
+    context = {"rlist": rlistpage}
+
+    return render(request, 'mypage.html', context)

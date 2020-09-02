@@ -7,4 +7,5 @@ urlpatterns =[
     path('login/', views.petppologin, name='login'),
     path('signup/', views.register, name='signup'),
     # path('signup/', views.makeanewid, name='signup'),
+    path('mypage/', views.myreview, name='mypage'),
 ]
