@@ -15,6 +15,19 @@ def search1(request, location) :
     context = {"rlist": rlistpage}
     return render(request, 'search.html', context)
 
+def search2(request, location) :
+    page = request.GET.get('page', 1)
+    rlist = Contents.objects.filter(location__contains = location)
+    paginator = Paginator(rlist, 5)
+    rlistpage = paginator.get_page(page)
+    context = {"rlist": rlistpage}
+    return render(request, 'search.html', context)
+
+
+def searchpart(request) :
+    return render(request, "location.html")
+
+
 def findsymptom(request):
     symp_filter=request.GET.get('symp_filter')
     if symp_filter == "전체":
@@ -75,3 +88,12 @@ def writecomment(request):
 
 def mapsearch(request):
     return render(request, 'mapsearch.html', None)
+
+def heart(request, id):
+    try:
+        review = Contents.objects.get(id=id)
+        review.recommend += 1
+        review.save()
+        return redirect("/review/"+str(id)+"/")
+    except Contents.DoesNotExist:
+        return redirect("/review/"+str(id)+"/")
