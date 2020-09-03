@@ -87,8 +87,8 @@ def myreview(request):
     page_c = request.GET.get('page_c', 1)
     rlist = Contents.objects.filter(nickname_id=petppoid).order_by("-id")
     clist = Comments.objects.filter(nickname_id=petppoid).order_by("-id")
-    paginator_r = Paginator(rlist, 1)
-    paginator_c = Paginator(clist, 5)
+    paginator_r = Paginator(rlist, 3)
+    paginator_c = Paginator(clist, 6)
     rlistpage = paginator_r.get_page(page_r)
     clistpage = paginator_c.get_page(page_c)
     context = {"rlist": rlistpage, "clist":clistpage}
