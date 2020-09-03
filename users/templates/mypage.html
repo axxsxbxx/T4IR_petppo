@@ -41,14 +41,10 @@
 					{% if user.is_authenticated %}
 					<header class="align-center">
 						<h2 style="font-weight:bold;font-size:50px;">마이페이지</h2>
-						<p style="font-size:25px;">아래 버튼을 눌러 내가 작성한 리뷰와 댓글을 한번에 확인하세요.</p>
+						<p style="font-size:25px;">내가 작성한 리뷰와 댓글을 한번에 확인하세요.</p>
+
 					</header>
 					<div class="inner">
-						<form method="POST" name="idsend">
-							{% csrf_token %}
-							<input type="hidden" name="petppoid" value="{{ user.username }}">
-							<button type="submit">확인하기</button>
-						</form>
 						<div>
 							{% if rlist %}
 							<h2 style="text-align:center;font-weight:bold;font-size:25px;">리뷰</h2>
