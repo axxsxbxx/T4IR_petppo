@@ -97,12 +97,16 @@ def myreview(request):
 
 def delete(request):
     id = request.GET['id']
+    user = User.objects.get(username=request.user.username)
     review = Contents.objects.get(id=id)
-    review.delete()
+    if str(user) == str(review.nickname_id):
+        review.delete()
     return redirect("mypage")
 
 def commentdelete(request):
     id = request.GET['id']
+    user = User.objects.get(username=request.user.username)
     comment = Comments.objects.get(id=id)
-    comment.delete()
+    if str(user) == str(comment.nickname_id):
+        comment.delete()
     return redirect("mypage")
