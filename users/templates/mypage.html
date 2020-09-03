@@ -44,10 +44,10 @@
 						<p>아래 버튼을 눌러 내가 작성한 리뷰와 댓글을 한번에 확인하세요.</p>
 					</header>
 					<div class="inner">
-						<form method="POST">
+						<form method="POST" name="idsend">
 							{% csrf_token %}
 							<input type="hidden" name="petppoid" value="{{ user.username }}">
-							<p style="text-align:center;"><button type="submit">내가 작성한 리뷰와 댓글</button></p>
+							<button type="submit">확인하기</button>
 						</form>
 						<div>
 							{% if rlist %}
@@ -70,11 +70,11 @@
 								</table>
 							<div style="text-align:center;">
 								{% if rlist.has_previous %}
-								<a href="../symptom/?page={{rlist.number|add:-1}}&symp_filter={{symp_filter}}"><<</a>
+								<a href="../mypage/?page_r={{rlist.number|add:-1}}&page_c={{clist.number}}"><<</a>
 								{% endif %}
 								Page {{rlist.number}} / {{rlist.paginator.num_pages}}
 								{% if rlist.has_next %}
-								<a href="../symptom/?page={{rlist.number|add:+1}}&symp_filter={{symp_filter}}">>></a>
+								<a href="../mypage/?page_r={{rlist.number|add:+1}}&page_c={{clist.number}}">>></a>
 								{% endif %}
 							</div>
 							{% endif %}
@@ -99,12 +99,12 @@
 									{% endfor %}
 								</table>
 							<div style="text-align:center;">
-								{% if rlist.has_previous %}
-								<a href="../symptom/?page={{rlist.number|add:-1}}&symp_filter={{symp_filter}}"><<</a>
+								{% if clist.has_previous %}
+								<a href="../mypage/?page_c={{clist.number|add:-1}}&page_r={{rlist.number}}"><<</a>
 								{% endif %}
-								Page {{rlist.number}} / {{rlist.paginator.num_pages}}
-								{% if rlist.has_next %}
-								<a href="../symptom/?page={{rlist.number|add:+1}}&symp_filter={{symp_filter}}">>></a>
+								Page {{clist.number}} / {{clist.paginator.num_pages}}
+								{% if clist.has_next %}
+								<a href="../mypage/?page_c={{clist.number|add:+1}}&page_r={{rlist.number}}">>></a>
 								{% endif %}
 							</div>
 							{% endif %}

@@ -83,12 +83,15 @@ def register(request):
 
 def myreview(request):
     petppoid = request.POST.get('petppoid')
-    page = request.GET.get('page', 1)
+    page_r = request.GET.get('page_r', 1)
+    page_c = request.GET.get('page_c', 1)
     rlist = Contents.objects.filter(nickname_id=petppoid).order_by("-id")
     clist = Comments.objects.filter(nickname_id=petppoid).order_by("-id")
-    paginator = Paginator(rlist, 5)
-    rlistpage = paginator.get_page(page)
-    context = {"rlist": rlistpage, "clist":clist}
+    paginator_r = Paginator(rlist, 1)
+    paginator_c = Paginator(clist, 5)
+    rlistpage = paginator_r.get_page(page_r)
+    clistpage = paginator_c.get_page(page_c)
+    context = {"rlist": rlistpage, "clist":clistpage}
 
     return render(request, 'mypage.html', context)
 
