@@ -40,8 +40,8 @@
 			<section id="three" class="wrapper">
 				<div class="inner">
 					<header class="align-center">
-						<h2>회원가입</h2>
-						<p>PETPPO와 함께하세요 </p>
+						<h2 style="font-weight:bold;font-size:50px;">회원가입</h2>
+						<p style="font-size:25px;">PETPPO와 함께하세요 </p>
 					</header>
                         <div class="row mt-5">    <!--이메일 중복시 알림말-->
                             <div class="col-12" style="color:purple; font-size:20px">
@@ -52,15 +52,15 @@
                             <form method="POST" action=".">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <label for="email">이메일</label>
+                                    <label for="email" style="font-size:18px;">이메일</label>
                                     <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요 (최대 20글자)" required>
                                 </div><br>
                                 <div class="form-group">
-                                    <label for="name">이름</label>
+                                    <label for="name" style="font-size:18px;">이름</label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요" required>
                                 </div><br>
                                 <div class="form-group">
-                                    <label for="password">비밀번호</label>
+                                    <label for="password" style="font-size:18px;">비밀번호</label>
                                     <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요 (최대 20글자)" required>
                                 </div><br>
                                 <!--<div class="form-group">
@@ -68,11 +68,11 @@
                                      <input type="password" class="form-control" id="re-password" name="re-password" placeholder="비밀번호를 한 번 더 입력하세요" required/>
                                 </div>-->
                                 <div class="form-group">
-                                    <label for="nickname">닉네임</label>
+                                    <label for="nickname" style="font-size:18px;">닉네임</label>
                                     <input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임을 입력하세요" required>
                                 </div><br>
                                 <div class="form-group">
-                                    <label for="addr">주소</label>
+                                    <label for="addr" style="font-size:18px;">주소</label>
                                     <select name="addr_id" id="addr">
                                         <option value="광진구">광진구</option>
                                         <option value="강동구">강동구</option>
@@ -102,22 +102,22 @@
                                     </select>
                                 </div><br>
                                 <div class="form-group">
-                                    <label for="kind">반려동물 종류</label>
+                                    <label for="kind" style="font-size:18px;">반려동물 종류</label>
                                     <input type="text" class="form-control" id="kind" name="kind" placeholder="반려동물의 종류를 입력하세요">
                                 </div><br>
                                 <div class="form-group">
-                                    <label for="petage">반려동물 나이</label>
+                                    <label for="petage" style="font-size:18px;">반려동물 나이</label>
                                     <input type="number" class="form-control" id="petage" name="petage" placeholder="나이를 입력하세요">
                                 </div><br>
                                 <div class="form-group">
-                                    <label for="petgender">반려동물 성별</label>
+                                    <label for="petgender" style="font-size:18px;">반려동물 성별</label>
                                     <select name="petgener" id="petgender">
                                         <option value="남">남</option>
                                         <option value="여">여</option>
                                     </select>
                                 </div><br>
                                 <div style="text-align:center">
-                                    <button type="submit">가입</button></div><br><br><br><br>
+                                    <button type="submit" style="background-color:#25553d;">가입</button></div><br><br><br><br>
                             </form>
                         </div>
 					</div>
@@ -154,13 +154,6 @@
 						<div class="copyright">
 							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
 						</div>
-						<ul class="icons">
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
-							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
-							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
-						</ul>
 					</div>
 				</div>
 			</footer>
