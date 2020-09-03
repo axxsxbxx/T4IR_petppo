@@ -41,8 +41,8 @@
 				<div class="inner">
 					{% if user.is_authenticated %}
 					<header class="align-center">
-						<h2>리뷰 작성</h2>
-						<p>당신의 경험을 들려주세요 </p>
+						<h2 style="font-weight:bold;font-size:50px;">리뷰 작성</h2>
+						<p style="font-size:25px;">당신의 경험을 들려주세요 </p>
 					</header>
 					<form method="post" enctype="multipart/form-data">
 								{% csrf_token %}
@@ -103,7 +103,7 @@
 											</section>
 										</td>
 									</tr>
-									<tr>
+									<tr style="text-align:center;">
 										<td><input type="submit" value="다 작성했어요"></td>
 										<td><input type="reset" value="다시 작성할래요" class="alt"></td>
 									</tr>
@@ -150,13 +150,6 @@
 						<div class="copyright">
 							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
 						</div>
-						<ul class="icons">
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
-							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
-							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
-						</ul>
 					</div>
 				</div>
 			</footer>
@@ -166,6 +159,5 @@
 			<script src="{% static 'assets/js/skel.min.js' %}"></script>
 			<script src="{% static 'assets/js/util.js' %}"></script>
 			<script src="{% static 'assets/js/main.js' %}"></script>
-
 	</body>
 </html>

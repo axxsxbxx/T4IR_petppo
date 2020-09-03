@@ -96,6 +96,8 @@
       		}
       		#searchbtn{
 				display:inline;
+				background-color:#25553d;
+				color:#ffffff !important;
 			}
       		#hospitalsearch{
       			margin-top:20px;
@@ -137,8 +139,8 @@
 			<section id="three" class="wrapper">
 				<div class="inner">
 					<header class="align-center">
-						<h2>병원으로 찾기</h2>
-						<p>당신 주위의 명의를 찾아보세요 </p>
+						<h2 style="font-weight:bold;font-size:50px;">병원으로 찾기</h2>
+						<p style="font-size:25px;">당신 주위의 명의를 찾아보세요 </p>
 					</header>
 					<input id="pac-input" class="controls" type="text" placeholder="장소 검색">
 					<div id="map"></div>
@@ -164,7 +166,7 @@
 							<td>{{board.nickname.nickname}}</td>
 						</tr>
 						{% endfor %}
-					</table>
+					</table><br>
 					<div style="text-align:center">
 					{% if rlist.has_previous %}
 						<a href="?page={{rlist.number|add:-1}}"><<</a>
@@ -190,13 +192,6 @@
 						<div class="copyright">
 							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
 						</div>
-						<ul class="icons">
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
-							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
-							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
-						</ul>
 					</div>
 				</div>
 			</footer>

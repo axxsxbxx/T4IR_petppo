@@ -82,7 +82,7 @@ def register(request):
         return render(request, 'signup.html', results)
 
 def myreview(request):
-    petppoid = request.POST.get('petppoid')
+    petppoid = request.POST.get('petppoid', request.GET.get('petppoid'))
     page_r = request.GET.get('page_r', 1)
     page_c = request.GET.get('page_c', 1)
     rlist = Contents.objects.filter(nickname_id=petppoid).order_by("-id")
