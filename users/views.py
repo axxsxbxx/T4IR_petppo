@@ -82,11 +82,11 @@ def register(request):
         return render(request, 'signup.html', results)
 
 def myreview(request):
-    petppoid = request.POST.get('petppoid')
+    user = User.objects.get(username=request.user.username)
     page_r = request.GET.get('page_r', 1)
     page_c = request.GET.get('page_c', 1)
-    rlist = Contents.objects.filter(nickname_id=petppoid).order_by("-id")
-    clist = Comments.objects.filter(nickname_id=petppoid).order_by("-id")
+    rlist = Contents.objects.filter(nickname_id=str(user)).order_by("-id")
+    clist = Comments.objects.filter(nickname_id=str(user)).order_by("-id")
     paginator_r = Paginator(rlist, 3)
     paginator_c = Paginator(clist, 6)
     rlistpage = paginator_r.get_page(page_r)
