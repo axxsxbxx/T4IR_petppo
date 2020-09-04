@@ -47,21 +47,23 @@
                             <form method="post" class="post-form" action="{% url 'common:login' %}">
                                 {% csrf_token %}
                                 {% include "form_errors.html" %}
+								<br>
                                 <div class="form-group">
-                                    <label for="username" style="font-size:18px;">아이디</label>
                                     <input type="text" class="form-control" name="username" id="username"
-                                           value="{{ form.username.value|default_if_none:'' }}" placeholder="아이디(이메일)를 입력하세요">
+                                           value="{{ form.username.value|default_if_none:'' }}" placeholder="아이디(이메일)를 입력하세요"
+										   style="width:70%;height:60px;margin:auto;">
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label for="password" style="font-size:18px;">비밀번호</label>
                                     <input type="password" class="form-control" name="password" id="password"
-                                           value="{{ form.password.value|default_if_none:'' }}" placeholder="비밀번호를 입력하세요">
+                                           value="{{ form.password.value|default_if_none:'' }}" placeholder="비밀번호를 입력하세요"
+										   style="width:70%;height:60px;margin:auto;">
                                 </div>
                                 <br>
-                                <div>
-                                <button type="submit" class="btn btn-primary" id="loginbtn" style="background-color:#25553d;">로그인</button><br><br>
-								Not registered? <a href="/users/signup/">회원가입</a>
+                                <div style="width:70%;text-align:center;margin:auto;">
+                                <button type="submit" class="btn btn-primary" id="loginbtn"
+										style="background-color:#25553d;width:100%;height:60px;font-size:20px;vertical-align:center;">로그인</button><br><br>
+								아직 함께하고 있지 않으신가요? <a href="/users/signup/">회원가입</a>
                                 </div>
                             </form>
                         </div>

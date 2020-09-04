@@ -2752,7 +2752,7 @@
 			padding: 0;
 			position: absolute;
 			top: 0;
-			font-size: 1em;
+			font-size: 1.5em;
 		}
 
 		#header a {
@@ -2764,7 +2764,8 @@
 			padding: 0 0.75em;
 			color: inherit;
 			text-decoration: none;
-			font-size: .8em;
+			font-size: 1em;
+			font-weight:bold;
 		}
 
 			#header a:hover {
