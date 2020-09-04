@@ -86,9 +86,6 @@ def writecomment(request):
         return redirect("/review/"+contentsnumber_id+"/")
 
 
-def mapsearch(request):
-    return render(request, 'mapsearch.html', None)
-
 def heart(request, id):
     try:
         review = Contents.objects.get(id=id)
