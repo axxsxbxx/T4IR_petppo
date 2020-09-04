@@ -122,7 +122,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = '/home/4petppo/4petppo.pythonanywhere.com/static'
+# STATIC_ROOT = '/home/4petppo/4petppo.pythonanywhere.com/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
