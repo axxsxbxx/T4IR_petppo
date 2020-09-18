@@ -191,15 +191,16 @@
                         		map:map
                     		});
                     		markers.push(marker);
-                 		}
-                		var infowindow = new google.maps.InfoWindow();
+                    		var infowindow = new google.maps.InfoWindow();
 
-                		google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    		return function() {
-                    		infowindow.setContent('<a href="/review/search1/'+ animal[i].name + '">' + animal[i].name + '</a>');
-                    		infowindow.open(map, marker);
-                    		}
-                		})(marker, i));
+                			google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    			return function() {
+                    				infowindow.setContent('<a href="/review/search1/'+ animal[i].name + '">' + animal[i].name + '</a>');
+                    				infowindow.open(map, marker);
+                    			}
+                			})(marker, i));
+                 		}
+
             		}
             		var markerCluster = new MarkerClusterer(map, markers, {gridSize: 50});
 
